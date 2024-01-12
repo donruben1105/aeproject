@@ -3,10 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\SES\Term;
+use App\Models\SES\Faculty;
+use App\Models\SES\Payment;
+use App\Models\SES\Section;
+use App\Models\SES\Subject;
+use App\Models\SES\Enrollment;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -42,4 +48,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function enrollment() {
+        return $this->hasOne(Enrollment::class, 'user_id');
+    }
+
+    public function faculty() {
+        return $this->hasOne(Faculty::class, 'user_id');
+    }
+
+    public function payment() {
+        return $this->hasOne(Payment::class, 'user_id');
+    }
+
+    public function section() {
+        return $this->hasOne(Section::class, 'user_id');
+    }
+
+    public function subject() {
+        return $this->hasOne(Subject::class, 'user_id');
+    }
+
+    public function term() {
+        return $this->hasOne(Term::class, 'user_id');
+    }
 }

@@ -1,12 +1,33 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\VerifyEmailController;
-use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth:sanctum')->match(['get'], '/dashboard', function (Request $request) {
+    // Retrieve user data from the authenticated user
+    $user = $request->user();
+
+    $userData = [
+        'first_name' => $user->first_name,
+        'last_name' => $user->last_name,
+        'gender' => $user->gender,
+        'contact_number' => $user->contact_number,
+        'email' => $user->email,
+        'dob' => $user->dob,
+        'address' => $user->address,
+        'term' => $user->term,
+        'section' => $user->section,
+        // Add any other relevant user data
+    ];
+
+    return response()->json(['user' => $userData]);
+});
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest')

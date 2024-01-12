@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('enrollments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('gender');
@@ -22,6 +24,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('term')->nullable();
             $table->string('section')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
