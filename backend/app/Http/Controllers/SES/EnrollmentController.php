@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\SES;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\SES\Enrollment;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class EnrollmentController extends Controller
 {
@@ -22,8 +24,7 @@ class EnrollmentController extends Controller
 
     public function store(Request $request) {
         $formFields = $request->validate([
-            'first_name' => 'string',
-            'last_name' => 'string',
+            'name' => 'string',
             'gender' => 'string',
             'contact_number' => 'string',
             'email' => 'string',
@@ -33,17 +34,25 @@ class EnrollmentController extends Controller
             'section' => 'string',
         ]);
 
-        $formFields['user_id'] = auth()->id();
+        $studentNumber = 'STNSES' . str_pad(rand(010101010, 99999990), 4, '0', STR_PAD_LEFT);
 
-        $enrollment = Enrollment::create($formFields);
+        $user = User::create([
+            'name' => $formFields['name'],
+            'email' => $formFields['email'],
+            'password' => Hash::make('password01!'),
+        ]);
+
+        $formFields['user_id'] = auth()->id();
+        $formFields['student_number'] = $studentNumber;
+
+        $enrollment = Enrollment::create($formFields, $user);
 
         return response()->json($enrollment, 201);
     }
 
     public function update(Request $request, $user_id) {
         $formFields = $request->validate([
-            'first_name' => 'string',
-            'last_name' => 'string',
+            'name' => 'string',
             'gender' => 'string',
             'contact_number' => 'string',
             'email' => 'string',
