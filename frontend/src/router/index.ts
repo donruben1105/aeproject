@@ -1,4 +1,4 @@
-import OnBoarding from '@/views/SES/OnBoarding.vue'
+import OnBoarding from '@/views/OnBoarding.vue'
 import TheSubjects from '@/views/SES/TheSubjects.vue'
 import ThePayments from '@/views/SES/ThePayments.vue'
 import TheFaculties from '@/views/SES/TheFaculties.vue'
@@ -6,6 +6,7 @@ import TheStudents from '@/views/SES/TheStudents.vue'
 import TheTerms from '@/views/SES/TheTerms.vue'
 import TheSections from '@/views/SES/TheSections.vue'
 import TheEnrollments from '@/views/SES/TheEnrollments.vue'
+import TheProfile from '@/views/ECOMMERCE/TheProfile.vue'
 import LogInVue from '@/views/LogIn.vue'
 import SignUpVue from '@/views/SignUp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -62,6 +63,11 @@ const router = createRouter({
       path: '/payment',
       name: 'payment',
       component: ThePayments
+    },
+    {
+      path: '/ecommerce/profile',
+      name: 'ecommerceProfile',
+      component: TheProfile
     },
   ]
 })

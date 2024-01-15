@@ -2,11 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SES\SectionController;
-use App\Http\Controllers\SES\EnrollmentController;
-use App\Http\Controllers\SES\FacultyController;
-use App\Http\Controllers\SES\SubjectController;
 use App\Http\Controllers\SES\TermController;
+use App\Http\Controllers\SES\FacultyController;
+use App\Http\Controllers\SES\SectionController;
+use App\Http\Controllers\SES\SubjectController;
+use App\Http\Controllers\SES\EnrollmentController;
+use App\Http\Controllers\ECOMMERCE\ListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Route::prefix('SES')->group(function() {
     Route::apiResource('/term', TermController::class);
     Route::apiResource('/subject', SubjectController::class);
     Route::apiResource('/faculty', FacultyController::class);
+});
+
+Route::prefix('ECOMMERCE')->group(function() {
+    Route::apiResource('/listing', ListingController::class);
 });
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {

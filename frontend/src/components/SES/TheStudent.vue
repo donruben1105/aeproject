@@ -6,7 +6,15 @@
         <table class="w-full border">
             <thead>
                 <tr class="bg-gray-50 border-b">
-                    <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+                  <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Student Number
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                        </svg>
+                    </div>
+                  </th>
+                  <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
                         <div class="flex items-center justify-center">
                             Name
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,7 +81,8 @@
               </div>
             <tbody v-else>
                     <tr v-for="enrollment in enrollments" :key="enrollment.id" class="bg-gray-100 text-center border-b text-sm text-gray-600">
-                        <td class="p-2 border-r">{{ enrollment.first_name }}</td>
+                        <td class="p-2 border-r">{{ enrollment.student_number }}</td>
+                        <td class="p-2 border-r">{{ enrollment.name }}</td>
                         <td class="p-2 border-r">{{ enrollment.email }}</td>
                         <td class="p-2 border-r">{{ enrollment.contact_number }}</td>
                         <td class="p-2 border-r">{{ enrollment.term }}</td>
@@ -91,16 +100,10 @@
                                   <form @submit.prevent="updateForm">
                                     <div class="-mx-3 md:flex mb-6">
                                       <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="first_name">
-                                          First Name
+                                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="name">
+                                          Name
                                         </label>
-                                        <input v-model="form.first_name" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" id="first_name" type="text" placeholder="Jane">
-                                      </div>
-                                      <div class="md:w-1/2 px-3">
-                                        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="last_name">
-                                          Last Name
-                                        </label>
-                                        <input v-model="form.last_name" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" id="last_name" type="text" placeholder="Doe">
+                                        <input v-model="form.name" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" id="first_name" type="text" placeholder="Jane">
                                       </div>
                                       <div class="md:w-1/2 px-3">
                                         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="email">
@@ -175,8 +178,8 @@ const { enrollments, loading, totalCount } = storeToRefs(enrollmentStore)
 const showUpdateModal = ref(false)
 const form = ref<Enrollment>({
   id: 0,
-  first_name: '',
-  last_name: '',
+  name: '',
+  student_number: '',
   gender: '',
   contact_number: '',
   email: '',

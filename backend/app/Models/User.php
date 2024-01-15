@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\ECOMMERCE\Listing;
 use App\Models\SES\Term;
 use App\Models\SES\Faculty;
 use App\Models\SES\Payment;
@@ -71,5 +73,9 @@ class User extends Authenticatable
 
     public function term() {
         return $this->hasOne(Term::class, 'user_id');
+    }
+
+    public function listing() {
+        return $this->hasOne(Listing::class, 'user_id');
     }
 }

@@ -6,16 +6,10 @@
   <form @submit.prevent="submitForm">
     <div class="-mx-3 md:flex mb-6">
       <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="first_name">
-          First Name
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="name">
+          Name
         </label>
-        <input v-model="form.first_name" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" id="first_name" type="text" placeholder="Jane">
-      </div>
-      <div class="md:w-1/2 px-3">
-        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="last_name">
-          Last Name
-        </label>
-        <input v-model="form.last_name" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" id="last_name" type="text" placeholder="Doe">
+        <input v-model="form.name" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" id="name" type="text" placeholder="Jane Doe">
       </div>
       <div class="md:w-1/2 px-3">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="email">
@@ -79,8 +73,8 @@ import type { Enrollment } from '@/stores/enrollmentStore';
 const enrollmentStore = useEnrollmentStore()
 const form = ref<Enrollment>({
   id: 0,
-  first_name: '',
-  last_name: '',
+  name: '',
+  student_number: '',
   gender: '',
   contact_number: '',
   email: '',
@@ -92,8 +86,7 @@ const form = ref<Enrollment>({
 })
 
 const resetForm = () => {
-  form.value.first_name = '';
-  form.value.last_name = '';
+  form.value.name = '';
   form.value.gender = '';
   form.value.contact_number = '';
   form.value.email = '';
@@ -104,7 +97,7 @@ const resetForm = () => {
 }
 
 const submitForm = () => {
-  if (form.value.first_name.length > 0) {
+  if (form.value.name.length > 0) {
     enrollmentStore.addEnrollment(form.value)
     resetForm();
   }

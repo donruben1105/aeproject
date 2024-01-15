@@ -3,8 +3,8 @@ import axios from 'axios'
 
 export interface Enrollment {
     id: number;
-    first_name: string;
-    last_name: string;
+    name: string;
+    student_number: string;
     gender: string;
     contact_number: string;
     email: string;
@@ -50,8 +50,7 @@ export const useEnrollmentStore = defineStore('enrollmentStore', {
         async addEnrollment(enrollment: Enrollment) {
             try {
                 const response = await axios.post('/api/SES/enrollment', {
-                    first_name: enrollment.first_name, 
-                    last_name: enrollment.last_name,
+                    name: enrollment.name, 
                     gender: enrollment.gender,
                     contact_number: enrollment.contact_number,
                     email: enrollment.email,
