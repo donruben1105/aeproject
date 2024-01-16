@@ -4,14 +4,17 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\ECOMMERCE\Listing;
 use App\Models\SES\Term;
 use App\Models\SES\Faculty;
 use App\Models\SES\Payment;
 use App\Models\SES\Section;
 use App\Models\SES\Subject;
 use App\Models\SES\Enrollment;
+use App\Models\ECOMMERCE\Listing;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\ECOMMERCE\ContactUs;
+use App\Models\ECOMMERCE\ECheckout;
+use App\Models\ECOMMERCE\ListingDetails;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -77,5 +80,13 @@ class User extends Authenticatable
 
     public function listing() {
         return $this->hasOne(Listing::class, 'user_id');
+    }
+
+    public function contact() {
+        return $this->hasOne(ContactUs::class, 'user_id');
+    }
+
+    public function checkout() {
+        return $this->hasOne(ECheckout::class, 'user_id');
     }
 }

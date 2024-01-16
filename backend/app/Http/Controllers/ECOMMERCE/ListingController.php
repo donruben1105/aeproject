@@ -52,21 +52,10 @@ class ListingController extends Controller
         $listing = Listing::findOrFail($user_id);
 
         $formFields = $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg',
             'name' => 'string',
             'price' => 'string',
             'status' => 'string',
         ]);
-
-        $image = $formFields['image'];
-
-        if ($image) {
-            $formFields = $this->processImage($formFields, $image);
-
-            if ($listing->image) {
-                Storage::deleteDirectory('/public/' . dirname($listing->image));
-            }
-        }
 
         $listing->update($formFields);
 
