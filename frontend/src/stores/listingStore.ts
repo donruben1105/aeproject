@@ -32,6 +32,20 @@ export const useListingStore = defineStore('listingStore', {
             }
         }, // end of getListings
 
+        async getListingById(listingId: number) {
+            this.loading = true;
+      
+            try {
+              const response = await axios.get(`/api/ECOMMERCE/listing/${listingId}`);
+              return response.data;
+            } catch (error) {
+              console.error('Error getting listing by ID', error);
+              throw error;
+            } finally {
+              this.loading = false;
+            }
+          }, // end of getListingsData
+
         async addListing(formData: FormData) {
             try {
                 const response = await axios.post('/api/ECOMMERCE/listing', formData)

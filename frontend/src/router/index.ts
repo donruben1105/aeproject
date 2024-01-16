@@ -7,6 +7,9 @@ import TheTerms from '@/views/SES/TheTerms.vue'
 import TheSections from '@/views/SES/TheSections.vue'
 import TheEnrollments from '@/views/SES/TheEnrollments.vue'
 import TheProfile from '@/views/ECOMMERCE/TheProfile.vue'
+import TheProduct from '@/views/ECOMMERCE/TheProduct.vue'
+import TheSingleProduct from '@/views/ECOMMERCE/TheSingleProduct.vue'
+import TheCheckout from '@/views/ECOMMERCE/TheCheckout.vue'
 import LogInVue from '@/views/LogIn.vue'
 import SignUpVue from '@/views/SignUp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -68,6 +71,21 @@ const router = createRouter({
       path: '/ecommerce/profile',
       name: 'ecommerceProfile',
       component: TheProfile
+    },
+    {
+      path: '/ecommerce/product',
+      name: 'ecommerceProduct',
+      component: TheProduct
+    },
+    {
+      path: '/ecommerce/product/:id',
+      name: 'ecommerceSingleProduct',
+      component: TheSingleProduct
+    },
+    {
+      path: '/ecommerce/checkout/:id',
+      name: 'ecommerceCheckout',
+      component: TheCheckout
     },
   ]
 })
