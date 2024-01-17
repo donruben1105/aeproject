@@ -28,7 +28,7 @@
           <hr class="my-4" />
             
             <div class="flex justify-center mb-14">
-                <form class>
+                <form @submit.prevent="submitForm">
                     <div class="flex flex-row mt-12">
                         <div class="pr-12 border border-white bg-white md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto mb-12">
                             <div class="-ml-24 mb-6 mt-4">
@@ -39,7 +39,7 @@
                                 <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="name">
                                   Name
                                 </label>
-                                <input class="appearance-none block w-96 bg-grey-lighter text-grey-darker border border-red rounded-xl py-3 px-4 mb-3" id="name" type="text" placeholder="Jane Doe">
+                                <input v-model="form.name" class="appearance-none block w-96 bg-grey-lighter text-grey-darker border border-red rounded-xl py-3 px-4 mb-3" id="name" type="text" placeholder="Jane Doe">
                               </div>
                             </div>
                             <div class="-mx-3 md:flex mb-6">
@@ -47,7 +47,7 @@
                                 <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="phone_number">
                                   Phone Number
                                 </label>
-                                <input class="appearance-none block w-96 bg-grey-lighter text-grey-darker border border-grey-lighter rounded-xl py-3 px-4" id="phone_number" type="text" placeholder="+63 9271234567">
+                                <input v-model="form.phone_number" class="appearance-none block w-96 bg-grey-lighter text-grey-darker border border-grey-lighter rounded-xl py-3 px-4" id="phone_number" type="text" placeholder="+63 9271234567">
                               </div>
                             </div>
                             <div class="-mx-3 md:flex pt-2">
@@ -55,20 +55,20 @@
                                 <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="address">
                                   Address
                                 </label>
-                                <input class="appearance-none block w-96 bg-grey-lighter text-grey-darker border border-grey-lighter rounded-xl py-3 px-4 mb-3" id="address" type="address" placeholder="Complete address">
+                                <input v-model="form.address" class="appearance-none block w-96 bg-grey-lighter text-grey-darker border border-grey-lighter rounded-xl py-3 px-4 mb-3" id="address" type="address" placeholder="Complete address">
                               </div>
                             </div>
                               <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="city">
                                   City
                                 </label>
-                                <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-xl py-3 px-4" id="city" type="text" placeholder="Bacoor">
+                                <input v-model="form.city" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-xl py-3 px-4" id="city" type="text" placeholder="Bacoor">
                               </div>
                               <div class="md:w-1/2 px-3 pt-2">
                                 <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="zip_code">
                                   Zip Code
                                 </label>
-                                <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-xl py-3 px-4" id="zip_code" type="text" placeholder="4102">
+                                <input v-model="form.zip_code" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-xl py-3 px-4" id="zip_code" type="text" placeholder="4102">
                               </div>
                             
                         </div>
@@ -83,7 +83,7 @@
                                     <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="credit_card_number">
                                       Credit Card Number
                                     </label>
-                                    <input class="text-black appearance-none block w-80 bg-grey-lighter text-grey-darker border rounded-xl py-3 px-4" id="credit_card_number" type="text" placeholder="#### #### #### ####">
+                                    <input v-model="form.credit_card_number" class="text-black appearance-none block w-80 bg-grey-lighter text-grey-darker border rounded-xl py-3 px-4" id="credit_card_number" type="text" placeholder="#### #### #### ####">
                                   </div>
                                 </div>
                                 <div class="-mx-3 md:flex space-x-1">
@@ -91,13 +91,13 @@
                                     <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="expiration_date">
                                       Expiration Date
                                     </label>
-                                    <input class="text-black appearance-none block w-40 bg-grey-lighter text-grey-darker border rounded-xl py-3 px-4 mb-3" id="expiration_date" type="text" placeholder="00/00">
+                                    <input v-model="form.expiration_date" class="text-black appearance-none block w-40 bg-grey-lighter text-grey-darker border rounded-xl py-3 px-4 mb-3" id="expiration_date" type="text" placeholder="00/00">
                                   </div>
                                   <div class="md:w-40 px-3 md:mb-0">
                                     <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="cvv">
                                       CVV
                                     </label>
-                                    <input class="text-black appearance-none block w-40 bg-grey-lighter text-grey-darker border rounded-xl py-3 px-4" id="cvv" type="text" placeholder="Bacoor">
+                                    <input v-model="form.cvv" class="text-black appearance-none block w-40 bg-grey-lighter text-grey-darker border rounded-xl py-3 px-4" id="cvv" type="text" placeholder="Bacoor">
                                   </div>
                                 </div>
                                 <div class="-mx-3 md:flex mb-4 space-x-4">
@@ -105,7 +105,7 @@
                                       <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="card_holder_name">
                                         Card Holder Name
                                       </label>
-                                      <input class="text-black appearance-none block w-80 bg-grey-lighter text-grey-darker border border-red rounded-xl py-3 px-4 mb-3" id="card_holder_name" type="text" placeholder="Jane Doe">
+                                      <input v-model="form.card_holder_name" class="text-black appearance-none block w-80 bg-grey-lighter text-grey-darker border border-red rounded-xl py-3 px-4 mb-3" id="card_holder_name" type="text" placeholder="Jane Doe">
                                     </div>
                                 </div>
                             </div>
@@ -125,13 +125,66 @@
   import { ref, onMounted, watch } from 'vue';
   import { useListingStore, type Listing } from '@/stores/listingStore';
   import { useRoute } from 'vue-router';
+  import { useCheckoutStore, type Checkout } from '@/stores/checkoutStore';
+  import axios from 'axios'
+  // import { storeToRefs } from 'pinia'
   
   const listingStore = useListingStore();
+  const checkoutStore = useCheckoutStore();
+  // const { checkouts, loading, totalCount } = storeToRefs(checkoutStore)
   const route = useRoute();
   const listingId = Number(route.params.id);
-  
-  // Use the correct method to get a specific listing by ID
   const listing = ref<Listing | undefined>(undefined);
+  const form = ref<Checkout>({
+    id: 0,
+    listing_id: 0,
+    name: '',
+    phone_number: '',
+    address: '',
+    city: '',
+    zip_code: '',
+    amount: '',
+    status: '',
+    type: '',
+    card_holder_name: '',
+    credit_card_number: '',
+    expiration_date: '',
+    cvv: '',
+    contact_number: '',
+    account_name: ''
+  });
+
+  const resetForm = () => {
+    form.value.name = '';
+    form.value.phone_number = '';
+    form.value.address = '';
+    form.value.city = '';
+    form.value.zip_code = '';
+    form.value.amount = '';
+    form.value.status = '';
+    form.value.type = '';
+    form.value.card_holder_name = '';
+    form.value.credit_card_number = '';
+    form.value.expiration_date = '';
+    form.value.cvv = '';
+    form.value.contact_number = '';
+    form.value.account_name = '';
+  }
+
+  const submitForm = async () => {
+  if (form.value.name.length > 0) {
+    
+    const listingDetails = await axios.get(`/api/ECOMMERCE/listing/${listingId}`);
+    
+    if (listingDetails.data) {
+      form.value.listing_id = listingDetails.data.id;
+      checkoutStore.addChekcout(form.value);
+    } else {
+      console.error('Error fetching listing details');
+    }
+    resetForm();
+  }
+};
   
   const getImageUrl = (image: string | File | null | undefined): string => {
     if (!image) {

@@ -34,7 +34,7 @@ Route::prefix('SES')->group(function() {
 
 Route::prefix('ECOMMERCE')->group(function() {
     Route::apiResource('/listing', ListingController::class);
-    Route::patch('/listing/checkout', [ECheckoutController::class, 'update']);
+    Route::apiResource('/checkout', ECheckoutController::class);
     Route::apiResource('/contact', ContactUsController::class);
 });
 

@@ -8,28 +8,41 @@ use App\Http\Controllers\Controller;
 
 class ECheckoutController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(Request $request, ECheckout $checkout)
-    {
-        $checkout->name = $request->name;
-        $checkout->phone_number = $request->phone_number;
-        $checkout->address = $request->address;
-        $checkout->city = $request->city;
-        $checkout->zip_code = $request->zip_code;
-        $checkout->amount = $request->amount;
-        $checkout->status = $request->status;
-        $checkout->type = $request->type;
-        $checkout->card_holder_name = $request->card_holder_name;
-        $checkout->credit_card_number = $request->credit_card_number;
-        $checkout->expiration_date = $request->expiration_date;
-        $checkout->cvv = $request->cvv;
-        $checkout->contact_number = $request->contact_number;
-        $checkout->account_name = $request->account_name;
-
-        $checkout->save();
+    public function index() {
+        $checkout = ECheckout::orderBy('created_at', 'desc')->get();
 
         return response()->json($checkout);
+    }
+
+    public function show($id) {
+        $checkout = ECheckout::findOrFail($id);
+
+        return response()->json($checkout);
+    }
+
+    public function store(Request $request) {
+        $formFields = $request->validate([
+            'listing_id' => 'exists:listings,id',
+            'name' => 'string',
+            'phone_number' => 'string',
+            'address' => 'string',
+            'city' => 'string',
+            'zip_code' => 'string',
+            'amount' => 'string',
+            'status' => 'string',
+            'type' => 'string',
+            'card_holder_name' => 'string',
+            'credit_card_number' => 'string',
+            'expiration_date' => 'string',
+            'cvv' => 'string',
+            'contact_number' => 'string',
+            'account_name' => 'string',
+        ]);
+
+        $formFields['user_id'] = auth()->id();
+
+        $checkout = ECheckout::create($formFields);
+
+        return response()->json($checkout, 201);
     }
 }
