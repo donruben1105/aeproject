@@ -43,6 +43,19 @@ export const useCheckoutStore = defineStore('checkoutStore', {
             }
         }, // end of getcheckouts
 
+        async getCheckoutById(checkoutId: number) {
+            this.loading = true
+
+            try {
+                const response = await axios.get(`/api/ECOMMERCE/checkout/${checkoutId}`)
+                return response.data
+            } catch (error) {
+                console.error('Error getting checkout by ID', error)
+            } finally {
+                this.loading = false
+            }
+        }, // end of getCheckoutById
+
         async addChekcout(checkout: Checkout) {
            try {
             const response = await axios.post('/api/ECOMMERCE/checkout', {

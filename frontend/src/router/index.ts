@@ -10,6 +10,7 @@ import TheProfile from '@/views/ECOMMERCE/TheProfile.vue'
 import TheProduct from '@/views/ECOMMERCE/TheProduct.vue'
 import TheSingleProduct from '@/views/ECOMMERCE/TheSingleProduct.vue'
 import TheCheckout from '@/views/ECOMMERCE/TheCheckout.vue'
+import TheOrder from '@/views/ECOMMERCE/TheOrder.vue'
 import LogInVue from '@/views/LogIn.vue'
 import SignUpVue from '@/views/SignUp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -86,6 +87,11 @@ const router = createRouter({
       path: '/ecommerce/checkout/:id',
       name: 'ecommerceCheckout',
       component: TheCheckout
+    },
+    {
+      path: '/ecommerce/order',
+      name: 'ecommerceOrder',
+      component: TheOrder
     },
   ]
 })
