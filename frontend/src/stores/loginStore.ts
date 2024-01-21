@@ -20,15 +20,20 @@ export const useLoginStore = defineStore('loginStore', {
             }
         }, // end of async getToken
 
-        async handleLogin(formData: { email: string, password: string}) {
+        async handleLogin(options: { email: string; password: string; onSuccess?: () => void }) {
             try {
-                await this.getToken()
+                await this.getToken();
                 await axios.post("/login", {
-                    email: formData.email,
-                    password: formData.password
-                })
-                console.log('routed to dashboard')
-                router.push("/dashboard")
+                    email: options.email,
+                    password: options.password,
+                });
+
+                if (options.onSuccess) {
+                    options.onSuccess();
+                }
+
+                console.log('routed to dashboard');
+                router.push("/dashboard");
             } catch (error) {
                 console.error('Invalid credentials. Please try again.', error);
             }

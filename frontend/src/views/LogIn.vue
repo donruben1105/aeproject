@@ -32,6 +32,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useLoginStore } from '@/stores/loginStore';
+import Swal from 'sweetalert2'
 
 const loginStore = useLoginStore();
 const form = ref({
@@ -39,11 +40,41 @@ const form = ref({
     password: ''
 })
 
+const configureSwal = () => {
+    return Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+    });
+};
+
 const handleLogin = async () => {
     try {
-        await loginStore.handleLogin(form.value)
+        await loginStore.handleLogin({
+            email: form.value.email,
+            password:form.value.password,
+            onSuccess: () => {
+                // Reset the password field
+                form.value.password = '';  // Resetting the password field
+
+                // Show success Toast
+                const Toast = configureSwal();
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Signed in successfully',
+                });
+            },
+        }
+        );
     } catch (error) {
         console.error('Invalid credentials. Please try again.', error);
     }
-}
+};
+
 </script>
