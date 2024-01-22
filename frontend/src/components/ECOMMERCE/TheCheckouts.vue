@@ -127,6 +127,7 @@
   import { useRoute } from 'vue-router';
   import { useCheckoutStore, type Checkout } from '@/stores/checkoutStore';
   import axios from 'axios'
+  import Swal from 'sweetalert2'
   // import { storeToRefs } from 'pinia'
   
   const listingStore = useListingStore();
@@ -171,6 +172,20 @@
     form.value.account_name = '';
   }
 
+  const configureSwal = () => {
+    return Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+    });
+};
+
   const submitForm = async () => {
   if (form.value.name.length > 0) {
     
@@ -178,7 +193,13 @@
     
     if (listingDetails.data) {
       form.value.listing_id = listingDetails.data.id;
-      checkoutStore.addChekcout(form.value);
+      checkoutStore.addChekcout(form.value).then(() => {
+        const Toast = configureSwal()
+        Toast.fire({
+          icon: 'success',
+          title: 'Item Purchase Successfully, Please wait for delivery.'
+        })
+      });
     } else {
       console.error('Error fetching listing details');
     }
