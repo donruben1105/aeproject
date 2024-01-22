@@ -188,6 +188,7 @@ import { ref } from 'vue'
 import { useListingStore, type Listing } from '@/stores/listingStore'
 import { storeToRefs } from 'pinia'
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 const listingStore = useListingStore()
 const showUpdateModal = ref(false)
@@ -251,6 +252,20 @@ const handleImageChange = (event: Event) => {
   form.value.image = (target.files && target.files[0]) || null;
 };
 
+const configureSwal = () => {
+    return Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+    });
+};
+
 const submitForm = async () => {
   if (form.value.name.length > 0) {
     const formData = new FormData();
@@ -259,7 +274,13 @@ const submitForm = async () => {
     formData.append('price', form.value.price);
     formData.append('status', form.value.status);
 
-    await listingStore.addListing(formData);
+    await listingStore.addListing(formData).then(() => {
+      const Toast = configureSwal()
+      Toast.fire({
+        icon: 'success',
+        title: 'Listing created successfully'
+      })
+    });
     resetForm();
   }
 };
@@ -271,7 +292,13 @@ const openUpdateModal = (listing: Listing) => {
 
 const updateForm = async () => {
   try {
-    await listingStore.updateListing(formUpdate.value.id, formUpdate.value)
+    await listingStore.updateListing(formUpdate.value.id, formUpdate.value).then(() => {
+      const Toast = configureSwal()
+        Toast.fire({
+          icon: 'success',
+          title: 'Listing updated successfully'
+        })
+    })
     showUpdateModal.value = false
   } catch (error) {
     console.error('Error updating listing', error)
@@ -279,6 +306,12 @@ const updateForm = async () => {
 }
 
 const deleteListing = (id: number) => {
-  listingStore.deleteListing(id)
+  listingStore.deleteListing(id).then(() => {
+    const Toast = configureSwal()
+    Toast.fire({
+      icon: 'success',
+      title: 'Listing deleted successfully'
+    })
+  })
 }
 </script>
