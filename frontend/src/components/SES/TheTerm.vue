@@ -88,6 +88,7 @@
 import { ref } from 'vue'
 import { useTermStore, type Term } from '@/stores/termStore'
 import { storeToRefs } from 'pinia'
+import Swal from 'sweetalert2'
 
 const termStore = useTermStore()
 const { terms, loading, totalCount } = storeToRefs(termStore)
@@ -108,9 +109,29 @@ const resetForm = () => {
 
 termStore.getTerms()
 
+const configureSwal = () => {
+    return Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast: { onmouseenter: any; onmouseleave: any; }) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+    });
+};
+
 const submitForm = () => {
   if(form.value.title.length > 0) {
-    termStore.addTerm(form.value)
+    termStore.addTerm(form.value).then(() => {
+      const Toast = configureSwal()
+      Toast.fire({
+        icon: 'success',
+        title: 'Term created successfully'
+      })
+    })
     resetForm();
   }
 }
@@ -122,7 +143,13 @@ const openUpdateModal = (term: Term) => {
 
 const updateForm = () => {
   try {
-    termStore.updateTerm(formUpdate.value.id, formUpdate.value)
+    termStore.updateTerm(formUpdate.value.id, formUpdate.value).then(() => {
+      const Toast = configureSwal()
+      Toast.fire({
+        icon: 'success',
+        title: 'Term updated successfully'
+      })
+    })
     showUpdateModal.value = false
   } catch (error) {
     console.error('Error updating term', error)
@@ -130,6 +157,12 @@ const updateForm = () => {
 }
 
 const deleteTerm = (id: number) => {
-  termStore.deleteTerm(id)
+  termStore.deleteTerm(id).then(() => {
+    const Toast = configureSwal()
+    Toast.fire({
+      icon: 'success',
+      title: 'Term deleted successfully'
+    })
+  })
 }
 </script>

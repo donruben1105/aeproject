@@ -172,6 +172,7 @@
 import { ref } from 'vue'
 import { useEnrollmentStore, type Enrollment } from '@/stores/enrollmentStore';
 import { storeToRefs } from 'pinia';
+import Swal from 'sweetalert2'
 
 const enrollmentStore = useEnrollmentStore()
 const { enrollments, loading, totalCount } = storeToRefs(enrollmentStore)
@@ -197,9 +198,29 @@ const openUpdateModal = (enrollment: Enrollment) => {
     showUpdateModal.value = true
 }
 
+const configureSwal = () => {
+    return Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast: { onmouseenter: any; onmouseleave: any; }) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+    });
+};
+
 const updateForm = () => {
     try {
-        enrollmentStore.updateEnrollment(form.value.id, form.value)
+        enrollmentStore.updateEnrollment(form.value.id, form.value).then(() => {
+          const Toast = configureSwal()
+          Toast.fire({
+            icon: 'success',
+            title: 'Student updated successfully'
+          })
+        })
         showUpdateModal.value = false
     } catch (error) {
         console.error('Error updating student', error)
@@ -207,6 +228,12 @@ const updateForm = () => {
 }
 
 const deleteEnrollment = (id: number) => {
-    enrollmentStore.deleteEnrollment(id)
+    enrollmentStore.deleteEnrollment(id).then(() => {
+      const Toast = configureSwal()
+      Toast.fire({
+        icon: 'success',
+        title: 'Student deleted successfully'
+      })
+    })
 }
 </script>

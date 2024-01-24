@@ -222,6 +222,7 @@
     import { ref } from 'vue'
     import { useFacultyStore, type Faculty } from '@/stores/facultyStore'
     import { storeToRefs } from 'pinia'
+    import Swal from 'sweetalert2'
 
     const facultyStore = useFacultyStore()
     const { faculties, loading, totalCount} = storeToRefs(facultyStore)
@@ -266,9 +267,29 @@
 
     facultyStore.getFaculties()
 
+    const configureSwal = () => {
+    return Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast: { onmouseenter: any; onmouseleave: any; }) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+    });
+};
+
     const submitForm = () => {
       if (form.value.first_name.length > 0) {
-        facultyStore.addFaculty(form.value)
+        facultyStore.addFaculty(form.value).then(() => {
+          const Toast = configureSwal()
+          Toast.fire({
+            icon: 'success',
+            title: 'Faculty created successfully'
+          })
+        })
         resetForm();
       }
     }
@@ -280,7 +301,13 @@
 
     const updateForm = () => {
       try {
-        facultyStore.updateFaculty(formUpdate.value.id, formUpdate.value)
+        facultyStore.updateFaculty(formUpdate.value.id, formUpdate.value).then(() => {
+          const Toast = configureSwal()
+          Toast.fire({
+            icon: 'success',
+            title: 'Faculty updated successfully'
+          })
+        })
         showUpdateModal.value = false
       } catch (error) {
         console.error('Error updating faculty', error)
@@ -288,7 +315,13 @@
     }
 
     const deleteFaculty = (id:  number) => {
-      facultyStore.deleteFaculty(id)
+      facultyStore.deleteFaculty(id).then(() => {
+        const Toast = configureSwal()
+        Toast.fire({
+          icon: 'success',
+          title: 'Faculty deleted successfully'
+        })
+      })
     }
       
     </script>

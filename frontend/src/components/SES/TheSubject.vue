@@ -88,6 +88,7 @@
 import { ref } from 'vue'
 import { useSubjectStore, type Subject } from '@/stores/subjectStore'
 import { storeToRefs } from 'pinia'
+import Swal from 'sweetalert2'
 
 const subjectStore = useSubjectStore()
 const { subjects, loading, totalCount } = storeToRefs(subjectStore)
@@ -109,9 +110,29 @@ const resetForm = () => {
 
 subjectStore.getSubjects()
 
+const configureSwal = () => {
+    return Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast: { onmouseenter: any; onmouseleave: any; }) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+    });
+};
+
 const submitForm = () => {
   if (form.value.title.length > 0) {
-    subjectStore.addSubject(form.value)
+    subjectStore.addSubject(form.value).then(() => {
+      const Toast = configureSwal()
+      Toast.fire({
+        icon: 'success',
+        title: 'Subject created successfully'
+      })
+    })
     resetForm()
   }
 }
@@ -123,7 +144,13 @@ const openUpdateModal = (subject: Subject) => {
 
 const updateForm = () => {
   try {
-    subjectStore.updateSubject(formUpdate.value.id, formUpdate.value)
+    subjectStore.updateSubject(formUpdate.value.id, formUpdate.value).then(() => {
+      const Toast = configureSwal()
+      Toast.fire({
+        icon: 'success',
+        title: 'Subject updated successfully'
+      })
+    })
     showUpdateModal.value = false
   } catch (error) {
    console.error('Error updating subject', error) 
@@ -131,6 +158,12 @@ const updateForm = () => {
 }
 
 const deleteSubject = (id: number) => {
-  subjectStore.deleteSubject(id)
+  subjectStore.deleteSubject(id).then(() => {
+    const Toast = configureSwal()
+    Toast.fire({
+      icon: 'success',
+      title: 'Subject deleted successfully'
+    })
+  })
 }
 </script>

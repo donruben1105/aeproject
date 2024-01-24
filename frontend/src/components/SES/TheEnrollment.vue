@@ -69,6 +69,7 @@
 import { ref } from 'vue';
 import { useEnrollmentStore } from '@/stores/enrollmentStore';
 import type { Enrollment } from '@/stores/enrollmentStore';
+import Swal from 'sweetalert2'
 
 const enrollmentStore = useEnrollmentStore()
 const form = ref<Enrollment>({
@@ -96,9 +97,29 @@ const resetForm = () => {
   form.value.section = '';
 }
 
+const configureSwal = () => {
+    return Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast: { onmouseenter: any; onmouseleave: any; }) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+    });
+};
+
 const submitForm = () => {
   if (form.value.name.length > 0) {
-    enrollmentStore.addEnrollment(form.value)
+    enrollmentStore.addEnrollment(form.value).then(() => {
+      const Toast = configureSwal()
+      Toast.fire({
+        icon: 'success',
+        title: 'Enrollment created successfully'
+      })
+    })
     resetForm();
   }
 }

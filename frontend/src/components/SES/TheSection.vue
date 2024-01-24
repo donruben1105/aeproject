@@ -88,6 +88,7 @@
 import { ref } from 'vue'
 import { useSectionStore, type Section} from '@/stores/sectionStore'
 import { storeToRefs } from 'pinia'
+import Swal from 'sweetalert2'
 
 const sectionStore = useSectionStore()
 const { sections, loading, totalCount } = storeToRefs(sectionStore)
@@ -108,9 +109,29 @@ const resetForm = () => {
 
 sectionStore.getSections()
 
+const configureSwal = () => {
+    return Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast: { onmouseenter: any; onmouseleave: any; }) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        },
+    });
+};
+
 const submitForm = () => {
     if (form.value.title.length > 0) {
-        sectionStore.addSection(form.value)
+        sectionStore.addSection(form.value).then(() => {
+          const Toast = configureSwal()
+          Toast.fire({
+            icon: 'success',
+            title: 'Section created successfully'
+          })
+        })
         resetForm();
     }
 }
@@ -122,7 +143,13 @@ const openUpdateModal = (section: Section) => {
 
 const updateForm = () => {
     try {
-        sectionStore.updateSection(formUpdate.value.id, formUpdate.value)
+        sectionStore.updateSection(formUpdate.value.id, formUpdate.value).then(() => {
+          const Toast = configureSwal()
+          Toast.fire({
+            icon: 'success',
+            title: 'Section updated successfully'
+          })
+        })
         showUpdateModal.value = false
     } catch (error) {
         console.error('Error updating section', error)
@@ -130,6 +157,12 @@ const updateForm = () => {
 }
 
 const deleteSection = (id: number) => {
-    sectionStore.deleteSection(id)
+    sectionStore.deleteSection(id).then(() => {
+      const Toast = configureSwal()
+      Toast.fire({
+        icon: 'success',
+        title: 'Section deleted successfully'
+      })
+    })
 }
 </script>
