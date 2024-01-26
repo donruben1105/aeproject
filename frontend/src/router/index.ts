@@ -11,6 +11,7 @@ import TheProduct from '@/views/ECOMMERCE/TheProduct.vue'
 import TheSingleProduct from '@/views/ECOMMERCE/TheSingleProduct.vue'
 import TheCheckout from '@/views/ECOMMERCE/TheCheckout.vue'
 import TheOrder from '@/views/ECOMMERCE/TheOrder.vue'
+import TheOfficial from '@/views/BRGY/TheOfficial.vue'
 import LogInVue from '@/views/LogIn.vue'
 import SignUpVue from '@/views/SignUp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -92,6 +93,11 @@ const router = createRouter({
       path: '/ecommerce/order',
       name: 'ecommerceOrder',
       component: TheOrder
+    },
+    {
+      path: '/brgy/official',
+      name: 'brgyOfficial',
+      component: TheOfficial
     },
   ]
 })
