@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BRGY\OfficialController;
 use App\Http\Controllers\ECOMMERCE\ContactUsController;
 use App\Http\Controllers\ECOMMERCE\ECheckoutController;
 use Illuminate\Http\Request;
@@ -36,6 +37,10 @@ Route::prefix('ECOMMERCE')->group(function() {
     Route::apiResource('/listing', ListingController::class);
     Route::apiResource('/checkout', ECheckoutController::class);
     Route::apiResource('/contact', ContactUsController::class);
+});
+
+Route::prefix('BRGY')->group(function() {
+    Route::apiResource('/official', OfficialController::class);
 });
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {

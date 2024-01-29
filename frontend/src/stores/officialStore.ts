@@ -38,7 +38,7 @@ export const useOfficialStore = defineStore('officialStore', {
             this.loading = true;
 
             try {
-                const response = await axios.get('/api/SES/official')
+                const response = await axios.get('/api/BRGY/official')
                 this.officials = response.data
                 this.loading = false
             } catch (error) {
@@ -48,7 +48,7 @@ export const useOfficialStore = defineStore('officialStore', {
 
         async addOfficial(official: Official) {
             try {
-                const response = await axios.post('/api/SES/official', {
+                const response = await axios.post('/api/BRGY/official', {
                     name: official.name, 
                     gender: official.gender,
                     contact_number: official.contact_number,
@@ -74,7 +74,7 @@ export const useOfficialStore = defineStore('officialStore', {
             }
 
             try {
-                const response = await axios.put(`/api/SES/official/${id}`, updateData);
+                const response = await axios.put(`/api/BRGY/official/${id}`, updateData);
 
                 const updatedIndex = this.officials.findIndex(official => official.id === id);
                 this.getOfficials();
@@ -92,7 +92,7 @@ export const useOfficialStore = defineStore('officialStore', {
 
         async deleteOfficial(id: number) {
             try {
-                const response = await axios.delete(`/api/SES/official/${id}`)
+                const response = await axios.delete(`/api/BRGY/official/${id}`)
                 console.log('official deleted successfully', response.data)
                 this.getOfficials()
             } catch (error) {

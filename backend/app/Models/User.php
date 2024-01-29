@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\BRGY\Official;
 use App\Models\SES\Term;
 use App\Models\SES\Faculty;
 use App\Models\SES\Payment;
@@ -88,5 +89,9 @@ class User extends Authenticatable
 
     public function checkout() {
         return $this->hasOne(ECheckout::class, 'user_id');
+    }
+
+    public function official() {
+        return $this->hasOne(Official::class, 'user_id');
     }
 }
