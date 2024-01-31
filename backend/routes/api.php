@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\BRGY\OfficialController;
-use App\Http\Controllers\ECOMMERCE\ContactUsController;
-use App\Http\Controllers\ECOMMERCE\ECheckoutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SES\TermController;
+use App\Http\Controllers\BRGY\StaffController;
 use App\Http\Controllers\SES\FacultyController;
 use App\Http\Controllers\SES\SectionController;
 use App\Http\Controllers\SES\SubjectController;
+use App\Http\Controllers\BRGY\OfficialController;
 use App\Http\Controllers\SES\EnrollmentController;
 use App\Http\Controllers\ECOMMERCE\ListingController;
-use App\Http\Controllers\ECOMMERCE\ListingDetailsController;
 use App\Http\Controllers\ECOMMERCE\PaymentController;
+use App\Http\Controllers\ECOMMERCE\ContactUsController;
+use App\Http\Controllers\ECOMMERCE\ECheckoutController;
+use App\Http\Controllers\ECOMMERCE\ListingDetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::prefix('ECOMMERCE')->group(function() {
 
 Route::prefix('BRGY')->group(function() {
     Route::apiResource('/official', OfficialController::class);
+    Route::apiReource('/staff', StaffController::class);
 });
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {

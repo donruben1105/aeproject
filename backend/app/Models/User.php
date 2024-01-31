@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\BRGY\Official;
+use App\Models\BRGY\Staff;
 use App\Models\SES\Term;
 use App\Models\SES\Faculty;
 use App\Models\SES\Payment;
@@ -93,5 +94,9 @@ class User extends Authenticatable
 
     public function official() {
         return $this->hasOne(Official::class, 'user_id');
+    }
+
+    public function staff() {
+        return $this->hasOne(Staff::class, 'user_id');
     }
 }
