@@ -99,6 +99,11 @@ const router = createRouter({
       name: 'brgyOfficial',
       component: TheOfficial
     },
+    // {
+    //   path: '/brgy/staff',
+    //   name: 'brgyOfficial',
+    //   component: TheOfficial
+    // },
   ]
 })
 

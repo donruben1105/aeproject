@@ -42,7 +42,7 @@ Route::prefix('ECOMMERCE')->group(function() {
 
 Route::prefix('BRGY')->group(function() {
     Route::apiResource('/official', OfficialController::class);
-    Route::apiReource('/staff', StaffController::class);
+    Route::apiResource('/staff', StaffController::class);
 });
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
