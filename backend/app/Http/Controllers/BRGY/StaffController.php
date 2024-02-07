@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class StaffController extends Controller
 {
     public function index() {
-        $staff = Staff::orderBy('create_at', 'desc')->get();
+        $staff = Staff::orderBy('created_at', 'desc')->get();
 
         return response()->json($staff);
     }

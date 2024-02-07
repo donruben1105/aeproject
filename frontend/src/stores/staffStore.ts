@@ -6,7 +6,7 @@ export interface Staff {
     name: string;
     email: string;
     gender: string;
-    contact: string;
+    contact_number: string;
     address: string;
     position: string;
 }
@@ -40,7 +40,7 @@ export const useStaffStore = defineStore('staffStore', {
                     name: staff.name,
                     email: staff.email,
                     gender: staff.gender,
-                    contact: staff.contact,
+                    contact_number: staff.contact_number,
                     address: staff.address,
                     position: staff.position,
                 })
