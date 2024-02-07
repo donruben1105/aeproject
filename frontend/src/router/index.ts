@@ -13,6 +13,7 @@ import TheCheckout from '@/views/ECOMMERCE/TheCheckout.vue'
 import TheOrder from '@/views/ECOMMERCE/TheOrder.vue'
 import TheOfficial from '@/views/BRGY/TheOfficial.vue'
 import TheStaff from '@/views/BRGY/TheStaff.vue'
+import TheZoneLeader from '@/views/BRGY/TheZoneLeader.vue'
 import LogInVue from '@/views/LogIn.vue'
 import SignUpVue from '@/views/SignUp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -104,6 +105,11 @@ const router = createRouter({
       path: '/brgy/staff',
       name: 'brgyStaff',
       component: TheStaff
+    },
+    {
+      path: '/brgy/zone/leader',
+      name: 'brgyZoneLeader',
+      component: TheZoneLeader
     },
   ]
 })
