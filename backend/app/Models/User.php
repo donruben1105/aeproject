@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\BRGY\Official;
-use App\Models\BRGY\Staff;
 use App\Models\SES\Term;
+use App\Models\BRGY\Staff;
 use App\Models\SES\Faculty;
 use App\Models\SES\Payment;
 use App\Models\SES\Section;
 use App\Models\SES\Subject;
+use App\Models\BRGY\Official;
+use App\Models\BRGY\HouseHold;
 use App\Models\SES\Enrollment;
 use App\Models\ECOMMERCE\Listing;
 use Laravel\Sanctum\HasApiTokens;
@@ -98,5 +99,9 @@ class User extends Authenticatable
 
     public function staff() {
         return $this->hasOne(Staff::class, 'user_id');
+    }
+
+    public function houseHold() {
+        return $this->hasOne(HouseHold::class, 'user_id');
     }
 }

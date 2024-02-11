@@ -8,6 +8,7 @@ use App\Http\Controllers\SES\FacultyController;
 use App\Http\Controllers\SES\SectionController;
 use App\Http\Controllers\SES\SubjectController;
 use App\Http\Controllers\BRGY\OfficialController;
+use App\Http\Controllers\BRGY\HouseHoldController;
 use App\Http\Controllers\SES\EnrollmentController;
 use App\Http\Controllers\ECOMMERCE\ListingController;
 use App\Http\Controllers\ECOMMERCE\PaymentController;
@@ -43,6 +44,7 @@ Route::prefix('ECOMMERCE')->group(function() {
 Route::prefix('BRGY')->group(function() {
     Route::apiResource('/official', OfficialController::class);
     Route::apiResource('/staff', StaffController::class);
+    Route::apiResource('/house/hold', HouseHoldController::class);
 });
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
