@@ -11,6 +11,7 @@ use App\Models\SES\Payment;
 use App\Models\SES\Section;
 use App\Models\SES\Subject;
 use App\Models\BRGY\Official;
+use App\Models\BRGY\Resident;
 use App\Models\BRGY\HouseHold;
 use App\Models\SES\Enrollment;
 use App\Models\ECOMMERCE\Listing;
@@ -103,5 +104,9 @@ class User extends Authenticatable
 
     public function houseHold() {
         return $this->hasOne(HouseHold::class, 'user_id');
+    }
+
+    public function resident() {
+        return $this->hasOne(Resident::class, 'user_id');
     }
 }
